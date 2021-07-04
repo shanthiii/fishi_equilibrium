@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Fishy...</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        
+    </head>
+    <style>
+        body{
+            display: grid;
+        }
+    </style>
+
+    <body>
+        <h1 class="para">Searching for other players...</h1>
+        <a href="/game"><button id = 'button' type="button" name="button">search!</button> </a>
+        <script src="/socket.io/socket.io.js"></script>
+        <!-- <script src="search.js"></script> -->
+        <script>
+            var socket = io('/search');
+            socket.on('broadcast',function(data) {
+                document.body.innerHTML = '';
+                document.write(data.description);
+            });
+            days = 0;
+            function funct(){
+                // console.log("helloooooo");
+                socket.emit("NewThrow","hello!ji!!");
+            }
+            data_1 = 0;
+                data_2 = 0;
+                data_3 = 0;
+                data_4 = 0; 
+            socket.on('hi',function(dp,data_1,data_2,data_3,data_4) {
+                days++;
+                document.body.innerHTML = ('<div class="container">\
+                                <h1>Let\'s Play</h1><div class="row">\
+                                <div class="col-sm-6" style="background-color:yellow; height: 200px; width:130px; padding: 20px; margin:15px;">\
+                                <p class="player_1">'+dp[0]+'</p>\
+                                <h1 id="player_1" class="player_1" style="position:bottom">'+data_1+'</h1></div>\
+                                <div class="col-sm-6" style="background-color:pink; height: 200px; width:130px; padding:20px; margin:15px;">\
+                                <p class="player_2">'+dp[1]+'</p>\
+                                <h1 id="player_2">'+data_2+'</h1>\
+                                </div>\
+                                <div class="col-sm-6" style="background-color:#d5f4e6; height: 200px; width:130px; padding:20px; margin: 15px;">\
+                                <p>'+dp[2]+'</p>\
+                                <h1 id="player_3">'+data_3+'</h1>\
+                                </div>\
+                                <div class="col-sm-6" style="background-color:coral; height: 200px; width:130px; padding:20px; margin:15px;">\
+                                <p>'+dp[3]+'</p><h1 id="player_4">'+data_4+'</h1>\
+                                </div>\
+                                </div>\
+                                </div>\
+                                <div class="container">\
+                                <h2>How many fishes you wanna catch today!?<h2>\
+                                <button onclick="funct()" class="btn btn-success">1 fish</button>\
+                                <button onclick="check()" class="btn btn-success">2 fishes</button>\
+                                </div>');
+                
+            });
+            
+            
+           
+        </script>
+    </body>
+</html>
